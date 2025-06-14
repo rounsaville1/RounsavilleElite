@@ -1,3 +1,4 @@
+echo #!/bin/bash/home/joseph/r-corex-elite
 Rounsaville Node Driver - Installation Guide
 
 1. Ensure Python 3+ is installed.
