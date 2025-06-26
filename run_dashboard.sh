@@ -1,19 +1,13 @@
-#!/bin/bash
+cask "r-corex-holo5d" do
+  version "1.0"
+  sha256 :no_check
 
-# Auto-Run R-COREX Dashboard from USB
-# Place this on the USB root directory
+  url "https://rounsavilletechnologies.com/Downloads/RCOREX_Holo5D.pkg"
+  name "R-COREX Holo5D"
+  desc "Quantum holographic overlay system by Joseph Michael Rounsaville"
+  homepage "https://rounsavilletechnologies.com"
 
-# Define expected file
-DASHBOARD_FILE="RCorex_Master_Dashboard.py"
+  pkg "RCOREX_Holo5D.pkg"
 
-# Define mount point (typical for EXFO Linux systems)
-USB_MOUNT="/media/usb"  # Adjust based on actual mount if different
-
-# Check if file exists and run it
-if [ -f "$USB_MOUNT/$DASHBOARD_FILE" ]; then
-    echo "Running R-COREX Dashboard from USB..."
-    python3 "$USB_MOUNT/$DASHBOARD_FILE"
-else
-    echo "Dashboard file not found on USB."
-fi
-
+  uninstall pkgutil: "com.rounsaville.holo5d"
+end
