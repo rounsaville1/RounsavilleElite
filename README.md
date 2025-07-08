@@ -32,3 +32,13 @@ new `.wav` files inside the `audio_samples` folder:
 ```bash
 python3 quantum_hum_fx.py
 ```
+
+## Hardwareless Hologram Demo
+`holo5d_ascii.py` provides a lightweight demonstration of a holographic spiral
+purely within the terminal. It runs without dedicated graphics libraries or
+projection hardware.
+
+Execute it with Python and stop with `Ctrl+C`:
+```bash
+python3 holo5d_ascii.py
+```
