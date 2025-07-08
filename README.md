@@ -24,3 +24,11 @@ You can then select nodes repeatedly until you quit or the loop limit is reached
 - Python for the command line driver and presence demo
 - HTML & CSS for the futuristic homepage
 - Additional roadmap details can be found in [BLUEPRINT.md](BLUEPRINT.md)
+
+## Quantum Hum FX
+`quantum_hum_fx.py` generates seven experimental hum-based audio effects.
+Audio samples are not stored in the repository. Run the script to create
+new `.wav` files inside the `audio_samples` folder:
+```bash
+python3 quantum_hum_fx.py
+```

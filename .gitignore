@@ -1,0 +1,3 @@
+# Generated audio files
+audio_samples/*.wav
+__pycache__/
