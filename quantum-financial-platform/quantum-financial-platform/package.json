@@ -1,0 +1,34 @@
+{
+  "name": "quantum-financial-platform",
+  "version": "1.0.0",
+  "description": "Revolutionary banking platform with quantum computing integration",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "dev:frontend": "live-server frontend/",
+    "dev:quantum": "cd quantum-processor && python app.py",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "mocha backend/tests/**/*.js",
+    "test:frontend": "jest frontend/tests/",
+    "build": "npm run build:frontend",
+    "build:frontend": "webpack --mode production",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "author": "Joseph Michael Rounsaville",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rounsaville1/rounsavilleelite.git"
+  },
+  "keywords": [
+    "quantum-computing",
+    "fintech",
+    "banking",
+    "plaid",
+    "qiskit",
+    "blockchain",
+    "security"
+  ]
+}
