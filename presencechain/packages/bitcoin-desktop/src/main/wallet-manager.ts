@@ -25,7 +25,7 @@ export class WalletManager {
       this.currentWallet = walletName;
 
       // Generate mnemonic for additional security
-      const mnemonic = bip39.generateMnemonic(256); // 24 words
+      const mnemonic = bip39.generateMnemonic(128); // 12 words
 
       console.log('🔐 Wallet created:', walletName);
 
@@ -210,7 +210,7 @@ export class WalletManager {
 
   generateMnemonicWallet(mnemonic?: string): any {
     // Generate or use provided mnemonic
-    const seed = mnemonic ? mnemonic : bip39.generateMnemonic(256);
+    const seed = mnemonic ? mnemonic : bip39.generateMnemonic(128);
 
     if (!bip39.validateMnemonic(seed)) {
       throw new Error('Invalid mnemonic phrase');

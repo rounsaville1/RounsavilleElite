@@ -171,7 +171,7 @@ cp ~/.bitcoin-desktop-jmr/wallets/wallet.dat ~/secure-backup/
 
 ### 2. Secure Your Mnemonic
 
-- Write down your 24-word mnemonic phrase
+- Write down your 12-word mnemonic phrase
 - Store in multiple secure physical locations
 - **NEVER** store digitally or take photos
 - **NEVER** share with anyone
