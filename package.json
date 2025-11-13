@@ -1,0 +1,40 @@
+{
+  "name": "rounsaville-elite-bitcoin-system",
+  "version": "1.0.0",
+  "description": "Unified Bitcoin Core mainnet system with full SHA-256 operations",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "jest",
+    "lint": "eslint backend/**/*.js"
+  },
+  "keywords": [
+    "bitcoin",
+    "cryptocurrency",
+    "blockchain",
+    "sha256",
+    "mainnet",
+    "bitcoin-core",
+    "presence-authentication",
+    "quantum-security",
+    "fintech"
+  ],
+  "author": "Rounsaville Elite",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
