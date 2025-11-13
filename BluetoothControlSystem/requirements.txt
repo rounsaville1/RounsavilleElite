@@ -1,0 +1,19 @@
+# Bluetooth Control System Requirements
+
+# Core Bluetooth libraries
+bleak>=0.21.0          # Modern Bluetooth LE library
+PyBluez>=0.23          # Classic Bluetooth support (Linux/macOS)
+
+# Web server
+aiohttp>=3.9.0         # Async HTTP server
+websockets>=12.0       # WebSocket support
+
+# Utilities
+python-dateutil>=2.8.0 # Date/time handling
+pyyaml>=6.0            # Configuration files
+pytz>=2023.3           # Timezone support
+
+# Optional: Enhanced features
+# astral>=3.2          # Sunrise/sunset calculations
+# pillow>=10.0         # Image processing for device icons
+# numpy>=1.24.0        # Numerical operations
