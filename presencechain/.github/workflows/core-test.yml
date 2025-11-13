@@ -1,0 +1,58 @@
+name: Core Node Tests
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/core/**'
+      - '.github/workflows/core-test.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'packages/core/**'
+
+jobs:
+  test:
+    name: Test Core Node
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download dependencies
+        working-directory: packages/core
+        run: go mod download
+
+      - name: Run tests
+        working-directory: packages/core
+        run: go test -v -race -coverprofile=coverage.out ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./packages/core/coverage.out
+          flags: core
+
+      - name: Build
+        working-directory: packages/core
+        run: go build -v -o presencechain main.go
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: presencechain-core
+          path: packages/core/presencechain

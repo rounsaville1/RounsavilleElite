@@ -1,0 +1,31 @@
+{
+  "name": "@presencechain/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PresenceChain - Decentralized Blockchain Ecosystem",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --parallel --stream dev",
+    "build": "pnpm --recursive --stream build",
+    "test": "pnpm --recursive --stream test",
+    "lint": "pnpm --recursive --stream lint",
+    "clean": "pnpm --recursive --parallel exec rm -rf dist node_modules",
+    "core:start": "cd packages/core && go run main.go",
+    "explorer-api:dev": "cd packages/explorer-api && pnpm dev",
+    "explorer-web:dev": "cd packages/explorer-web && pnpm dev",
+    "dashboard:dev": "cd packages/dashboard && pnpm dev"
+  },
+  "keywords": [
+    "blockchain",
+    "cryptocurrency",
+    "presencecoin",
+    "monorepo"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
