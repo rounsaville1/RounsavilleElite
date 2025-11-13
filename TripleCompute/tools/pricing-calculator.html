@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripleCompute Pricing Calculator - Save 60-70% on Serverless Costs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .calculator-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .slider-container {
+            margin-top: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .result-card.netlify {
+            border-left-color: #00ad9f;
+        }
+
+        .result-card.aws {
+            border-left-color: #ff9900;
+        }
+
+        .result-card.triplecompute {
+            border-left-color: #667eea;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .result-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .result-card .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result-card.netlify .price {
+            color: #00ad9f;
+        }
+
+        .result-card.aws .price {
+            color: #ff9900;
+        }
+
+        .result-card .savings {
+            background: #4caf50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .comparison-table {
+            margin-top: 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 TripleCompute Pricing Calculator</h1>
+            <p>See how much you can save with our multi-cloud arbitrage platform</p>
+        </div>
+
+        <div class="content">
+            <div class="calculator-section">
+                <h2 style="margin-bottom: 20px;">Calculate Your Savings</h2>
+
+                <div class="input-group">
+                    <label for="functions">Number of Function Invocations (per month)</label>
+                    <input type="number" id="functions" value="1000000" min="0" step="100000">
+                    <div class="slider-container">
+                        <input type="range" id="functionsSlider" class="slider" min="100000" max="100000000" value="1000000" step="100000">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="memory">Average Memory per Function (MB)</label>
+                    <input type="number" id="memory" value="512" min="128" max="10240" step="128">
+                    <div class="slider-container">
+                        <input type="range" id="memorySlider" class="slider" min="128" max="10240" value="512" step="128">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="duration">Average Duration (ms)</label>
+                    <input type="number" id="duration" value="200" min="50" max="30000" step="50">
+                    <div class="slider-container">
+                        <input type="range" id="durationSlider" class="slider" min="50" max="30000" value="200" step="50">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="bandwidth">Data Transfer (GB/month)</label>
+                    <input type="number" id="bandwidth" value="100" min="0" max="10000" step="10">
+                    <div class="slider-container">
+                        <input type="range" id="bandwidthSlider" class="slider" min="0" max="10000" value="100" step="10">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results" id="results">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+
+            <div class="comparison-table">
+                <h2 style="margin-bottom: 20px;">Feature Comparison</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Netlify</th>
+                            <th>AWS Lambda</th>
+                            <th>TripleCompute</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparisonTable">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cta-section">
+                <h2>Ready to Save 60-70% on Compute Costs?</h2>
+                <p style="margin-top: 15px; font-size: 1.1em;">Join thousands of developers who are already using TripleCompute</p>
+                <a href="#" class="cta-button">Start Free Trial</a>
+                <p style="margin-top: 20px; opacity: 0.9;">No credit card required • 1,000 free compute units/month</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sync inputs with sliders
+        function syncInput(inputId, sliderId) {
+            const input = document.getElementById(inputId);
+            const slider = document.getElementById(sliderId);
+
+            input.addEventListener('input', () => {
+                slider.value = input.value;
+                calculate();
+            });
+
+            slider.addEventListener('input', () => {
+                input.value = slider.value;
+                calculate();
+            });
+        }
+
+        syncInput('functions', 'functionsSlider');
+        syncInput('memory', 'memorySlider');
+        syncInput('duration', 'durationSlider');
+        syncInput('bandwidth', 'bandwidthSlider');
+
+        function calculate() {
+            const functions = parseInt(document.getElementById('functions').value) || 0;
+            const memory = parseInt(document.getElementById('memory').value) || 512;
+            const duration = parseInt(document.getElementById('duration').value) || 200;
+            const bandwidth = parseInt(document.getElementById('bandwidth').value) || 0;
+
+            // Calculate GB-hours
+            const memoryGB = memory / 1024;
+            const durationHours = duration / (1000 * 60 * 60);
+            const gbHours = functions * memoryGB * durationHours;
+
+            // Netlify Pricing (5 credits per GB-hour, $0.004 per credit on Pro)
+            const netlifyCost = (gbHours * 5 * 0.004) + (bandwidth * 10 * 0.004);
+
+            // AWS Lambda Pricing ($0.06 per GB-hour)
+            const awsCost = (gbHours * 0.06) + (bandwidth * 0.09);
+
+            // TripleCompute Pricing (60% cheaper due to caching + arbitrage)
+            const cacheHitRate = 0.75; // 75% cache hit rate
+            const effectiveGBHours = gbHours * (1 - cacheHitRate); // Only 25% hits compute
+            const tripleComputeCost = (effectiveGBHours * 0.012) + (bandwidth * 0.02);
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-card netlify">
+                    <h3>Netlify Functions</h3>
+                    <div class="price">$${netlifyCost.toFixed(2)}</div>
+                    <p>/month</p>
+                    <p style="margin-top: 10px; color: #666;">
+                        ${(gbHours * 5).toFixed(0)} credits<br>
+                        ${gbHours.toFixed(2)} GB-hours
+                    </p>
+                </div>
+
+                <div class="result-card aws">
+                    <h3>AWS Lambda</h3>
+                    <div class="price">$${awsCost.toFixed(2)}</div>
+                    <p>/month</p>
+                    <p style="margin-top: 10px; color: #666;">
+                        ${gbHours.toFixed(2)} GB-hours<br>
+                        ${bandwidth} GB bandwidth
+                    </p>
+                </div>
+
+                <div class="result-card triplecompute">
+                    <h3>TripleCompute</h3>
+                    <div class="price">$${tripleComputeCost.toFixed(2)}</div>
+                    <p>/month</p>
+                    <div class="savings">
+                        Save $${(netlifyCost - tripleComputeCost).toFixed(2)}/month
+                        (${((1 - tripleComputeCost/netlifyCost) * 100).toFixed(0)}% cheaper)
+                    </div>
+                    <p style="margin-top: 10px; color: #333;">
+                        75% cache hit rate<br>
+                        Multi-cloud arbitrage
+                    </p>
+                </div>
+            `;
+
+            // Update comparison table
+            const comparisonTable = document.getElementById('comparisonTable');
+            comparisonTable.innerHTML = `
+                <tr>
+                    <td>Monthly Cost</td>
+                    <td>$${netlifyCost.toFixed(2)}</td>
+                    <td>$${awsCost.toFixed(2)}</td>
+                    <td class="highlight">$${tripleComputeCost.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td>Compute Units</td>
+                    <td>${(netlifyCost / 0.004).toFixed(0)} credits</td>
+                    <td>${gbHours.toFixed(2)} GB-hours</td>
+                    <td class="highlight">${(tripleComputeCost / 0.01 * 3).toFixed(0)} units (3x more)</td>
+                </tr>
+                <tr>
+                    <td>Global Edge Network</td>
+                    <td>✅</td>
+                    <td>CloudFront (extra cost)</td>
+                    <td class="highlight">✅ Included</td>
+                </tr>
+                <tr>
+                    <td>Intelligent Caching</td>
+                    <td>Basic</td>
+                    <td>None</td>
+                    <td class="highlight">ML-Powered (75%+ hit rate)</td>
+                </tr>
+                <tr>
+                    <td>Auto-Optimization</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td class="highlight">✅ 50% compute reduction</td>
+                </tr>
+                <tr>
+                    <td>Multi-Cloud Routing</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td class="highlight">✅ 6+ providers</td>
+                </tr>
+                <tr>
+                    <td>Credit Marketplace</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td class="highlight">✅ Buy/sell unused credits</td>
+                </tr>
+                <tr>
+                    <td>Annual Savings</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="highlight">$${((netlifyCost - tripleComputeCost) * 12).toFixed(2)}</td>
+                </tr>
+            `;
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
