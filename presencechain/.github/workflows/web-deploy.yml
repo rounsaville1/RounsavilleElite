@@ -1,0 +1,80 @@
+name: Web Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/dashboard/**'
+      - 'packages/explorer-web/**'
+      - '.github/workflows/web-deploy.yml'
+
+jobs:
+  build-dashboard:
+    name: Build Dashboard
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build dashboard
+        working-directory: packages/dashboard
+        run: pnpm build
+
+      - name: Upload dashboard artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dashboard-dist
+          path: packages/dashboard/dist
+
+  build-explorer:
+    name: Build Explorer Web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build explorer-web
+        working-directory: packages/explorer-web
+        run: pnpm build
+
+      - name: Upload explorer artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: explorer-web-dist
+          path: packages/explorer-web/dist
+
+  # Deploy jobs would go here (e.g., to Vercel, Netlify, etc.)
+  # deploy-dashboard:
+  #   needs: build-dashboard
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to Vercel
+  #       # deployment steps
