@@ -1,5 +1,6 @@
 {
-  "name": "@presencechain/bitcoin-desktop",
+  "name": "bitcoin-desktop-jmr",
+  "productName": "Bitcoin Full Node - JMR",
   "version": "1.0.0",
   "description": "Offline Bitcoin Full Node Desktop Application for Joseph Michael Rounsaville",
   "main": "dist/main/index.js",
@@ -8,7 +9,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm:dev:main\" \"npm:dev:renderer\"",
-    "dev:main": "tsc -p tsconfig.main.json && electron .",
+    "dev:main": "tsc -p tsconfig.main.json --watch",
     "dev:renderer": "vite",
     "build": "npm run build:main && npm run build:renderer",
     "build:main": "tsc -p tsconfig.main.json",
@@ -17,7 +18,9 @@
     "package": "electron-builder",
     "package:win": "electron-builder --win",
     "package:mac": "electron-builder --mac",
-    "package:linux": "electron-builder --linux"
+    "package:linux": "electron-builder --linux",
+    "clean": "rm -rf dist release node_modules",
+    "install:all": "npm install && cd ../../ && pnpm install"
   },
   "dependencies": {
     "bitcoin-core": "^4.2.0",
@@ -44,10 +47,11 @@
     "vite-plugin-electron": "^0.28.2"
   },
   "build": {
-    "appId": "com.presencechain.bitcoin-desktop",
+    "appId": "com.presencechain.bitcoin-desktop-jmr",
     "productName": "Bitcoin Full Node - JMR",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "assets"
     },
     "files": [
       "dist/**/*",
